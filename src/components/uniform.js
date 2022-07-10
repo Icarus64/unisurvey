@@ -17,8 +17,10 @@ export default function Uniform() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    alert(JSON.stringify(inputs));
-  }
+    // alert(JSON.stringify(inputs));
+    localStorage.setItem("formData", JSON.stringify(inputs));
+    window.location.href = `/dashboard`;
+  };
 
   return (
     <form id="uniform" onSubmit={handleSubmit}>
