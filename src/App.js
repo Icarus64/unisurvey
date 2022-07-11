@@ -2,8 +2,14 @@ import "./App.css";
 import Uniform from "./components/uniform";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Dashboard from "./components/dashboard";
+import { useState } from "react";
 
 function App() {
+  const [formData, setFormData] = useState(false);
+  const handleChange = (data) => {
+    console.log("you called me?");
+    setFormData(data);
+  };
   return (
     <div className="App">
       <header className="App-header">
@@ -16,8 +22,16 @@ function App() {
 
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Uniform />} />
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route
+              path="/"
+              element={
+                <Uniform appState={formData} setAppState={handleChange} />
+              }
+            />
+            <Route
+              path="/dashboard"
+              element={<Dashboard appState={formData} />}
+            />
           </Routes>
         </BrowserRouter>
       </header>

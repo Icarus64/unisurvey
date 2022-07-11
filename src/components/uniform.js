@@ -1,9 +1,10 @@
 import { useState } from "react";
 
-export default function Uniform() {
+export default function Uniform({ appState, setAppState }) {
   const [inputs, setInputs] = useState({
     hobbies: [],
   });
+  console.log(appState);
 
   const handleChange = (event, key) => {
     setInputs((values) => ({ ...values, [key]: event.target.value }));
@@ -17,7 +18,8 @@ export default function Uniform() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // alert(JSON.stringify(inputs));
+    setAppState(true);
+    alert(appState);
     localStorage.setItem("formData", JSON.stringify(inputs));
     window.location.href = `/dashboard`;
   };

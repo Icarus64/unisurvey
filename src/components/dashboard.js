@@ -1,10 +1,11 @@
 import { useState } from "react";
 
-export default function Dashboard({ inputs, setInputs }) {
+export default function Dashboard({ appState }) {
   const [data, setData] = useState(
     JSON.parse(localStorage.getItem("formData"))
   );
-  console.log(data);
+
+  console.log(appState);
 
   const handleChange = (event, key) => {
     setData((values) => ({ ...values, [key]: event.target.value }));
