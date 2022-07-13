@@ -5,9 +5,10 @@ import Dashboard from "./components/dashboard";
 import { useState } from "react";
 
 function App() {
-  const [formData, setFormData] = useState(false);
+  const [formData, setFormData] = useState({
+    hobbies: [],
+  });
   const handleChange = (data) => {
-    console.log("you called me?");
     setFormData(data);
   };
   return (
@@ -30,7 +31,9 @@ function App() {
             />
             <Route
               path="/dashboard"
-              element={<Dashboard appState={formData} />}
+              element={
+                <Dashboard appState={formData} setAppState={handleChange} />
+              }
             />
           </Routes>
         </BrowserRouter>

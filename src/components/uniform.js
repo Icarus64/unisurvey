@@ -1,27 +1,24 @@
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Uniform({ appState, setAppState }) {
-  const [inputs, setInputs] = useState({
-    hobbies: [],
-  });
-  console.log(appState);
+  const navigate = useNavigate();
 
   const handleChange = (event, key) => {
-    setInputs((values) => ({ ...values, [key]: event.target.value }));
+    setAppState((values) => ({ ...values, [key]: event.target.value }));
   };
 
   const handleChecked = (key, value) => {
-    const hobbies = inputs.hobbies;
-    !inputs.hobbies.includes(value) ? hobbies.push(value) : hobbies.pop(value);
-    setInputs((values) => ({ ...values, [key]: hobbies }));
+    const hobbies = appState.hobbies;
+    !appState.hobbies.includes(value)
+      ? hobbies.push(value)
+      : hobbies.pop(value);
+    setAppState((values) => ({ ...values, [key]: hobbies }));
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setAppState(true);
-    alert(appState);
-    localStorage.setItem("formData", JSON.stringify(inputs));
-    window.location.href = `/dashboard`;
+    setAppState(appState);
+    navigate("/dashboard");
   };
 
   return (
@@ -30,7 +27,7 @@ export default function Uniform({ appState, setAppState }) {
       <input
         id="sname"
         type="text"
-        value={inputs.sname || ""}
+        value={appState.sname || ""}
         onChange={(e) => handleChange(e, "sname")}
       />
       <br />
@@ -39,7 +36,7 @@ export default function Uniform({ appState, setAppState }) {
         id="cname"
         rows={4}
         cols={30}
-        value={inputs.cname || ""}
+        value={appState.cname || ""}
         onChange={(e) => handleChange(e, "cname")}
       ></textarea>
       <br />
@@ -47,7 +44,7 @@ export default function Uniform({ appState, setAppState }) {
       <input
         id="dob"
         type="date"
-        value={inputs.dob || ""}
+        value={appState.dob || ""}
         onChange={(e) => handleChange(e, "dob")}
       />
       <br />
@@ -58,7 +55,7 @@ export default function Uniform({ appState, setAppState }) {
           type="radio"
           name="gender"
           value="male"
-          checked={inputs.gender === "male" || false}
+          checked={appState.gender === "male" || false}
           onChange={(e) => handleChange(e, "gender")}
         />
         <label htmlFor="r-male">Male</label>
@@ -67,7 +64,7 @@ export default function Uniform({ appState, setAppState }) {
           type="radio"
           name="gender"
           value="female"
-          checked={inputs.gender === "female" || false}
+          checked={appState.gender === "female" || false}
           onChange={(e) => handleChange(e, "gender")}
         />
         <label htmlFor="r-female">Female</label>
@@ -76,7 +73,7 @@ export default function Uniform({ appState, setAppState }) {
           type="radio"
           name="gender"
           value="other"
-          checked={inputs.gender === "other" || false}
+          checked={appState.gender === "other" || false}
           onChange={(e) => handleChange(e, "gender")}
         />
         <label htmlFor="r-other">Other</label>
@@ -87,28 +84,28 @@ export default function Uniform({ appState, setAppState }) {
         <input
           id="sports"
           type="checkbox"
-          checked={inputs.hobbies.includes("sports")}
+          checked={appState.hobbies.includes("sports")}
           onChange={() => handleChecked("hobbies", "sports")}
         />
         <label htmlFor="sports">Sports</label>
         <input
           id="literature"
           type="checkbox"
-          checked={inputs.hobbies.includes("literature")}
+          checked={appState.hobbies.includes("literature")}
           onChange={() => handleChecked("hobbies", "literature")}
         />
         <label htmlFor="literature">Literature</label>
         <input
           id="leisure"
           type="checkbox"
-          checked={inputs.hobbies.includes("leisure")}
+          checked={appState.hobbies.includes("leisure")}
           onChange={() => handleChecked("hobbies", "leisure")}
         />
         <label htmlFor="leisure">Leisure</label>
         <input
           id="skill"
           type="checkbox"
-          checked={inputs.hobbies.includes("up-skilling")}
+          checked={appState.hobbies.includes("up-skilling")}
           onChange={() => handleChecked("hobbies", "up-skilling")}
         />
         <label htmlFor="skill">Up-skilling</label>

@@ -1,34 +1,33 @@
 import { useState } from "react";
 
-export default function Dashboard({ appState }) {
-  const [data, setData] = useState(
-    JSON.parse(localStorage.getItem("formData"))
-  );
-
-  console.log(appState);
-
+export default function Dashboard({ appState, setAppState }) {
   const handleChange = (event, key) => {
-    setData((values) => ({ ...values, [key]: event.target.value }));
+    setAppState((values) => ({ ...values, [key]: event.target.value }));
   };
 
   const handleChecked = (key, value) => {
-    const hobbies = data.hobbies;
-    !data.hobbies.includes(value) ? hobbies.push(value) : hobbies.pop(value);
-    setData((values) => ({ ...values, [key]: hobbies }));
+    const hobbies = appState.hobbies;
+    !appState.hobbies.includes(value)
+      ? hobbies.push(value)
+      : hobbies.pop(value);
+    setAppState((values) => ({ ...values, [key]: hobbies }));
   };
 
   const NameComp = () => {
     return (
       <input
         type="text"
-        value={data.sname}
+        value={appState.sname}
         onChange={(e) => handleChange(e, "sname")}
       />
     );
   };
   const CollegeComp = () => {
     return (
-      <textarea value={data.cname} onChange={(e) => handleChange(e, "cname")} />
+      <textarea
+        value={appState.cname}
+        onChange={(e) => handleChange(e, "cname")}
+      />
     );
   };
   const DobComp = () => {
@@ -36,7 +35,7 @@ export default function Dashboard({ appState }) {
       <input
         id="dob"
         type="date"
-        value={data.dob}
+        value={appState.dob}
         onChange={(e) => handleChange(e, "dob")}
       />
     );
@@ -50,7 +49,7 @@ export default function Dashboard({ appState }) {
           type="radio"
           name="gender"
           value="male"
-          checked={data.gender === "male"}
+          checked={appState.gender === "male"}
           onChange={(e) => handleChange(e, "gender")}
         />
         <label htmlFor="r-male">Male</label>
@@ -59,7 +58,7 @@ export default function Dashboard({ appState }) {
           type="radio"
           name="gender"
           value="female"
-          checked={data.gender === "female"}
+          checked={appState.gender === "female"}
           onChange={(e) => handleChange(e, "gender")}
         />
         <label htmlFor="r-female">Female</label>
@@ -68,7 +67,7 @@ export default function Dashboard({ appState }) {
           type="radio"
           name="gender"
           value="other"
-          checked={data.gender === "other"}
+          checked={appState.gender === "other"}
           onChange={(e) => handleChange(e, "gender")}
         />
         <label htmlFor="r-other">Other</label>
@@ -82,28 +81,28 @@ export default function Dashboard({ appState }) {
         <input
           id="sports"
           type="checkbox"
-          checked={data.hobbies.includes("sports")}
+          checked={appState.hobbies.includes("sports")}
           onChange={() => handleChecked("hobbies", "sports")}
         />
         <label htmlFor="sports">Sports</label>
         <input
           id="literature"
           type="checkbox"
-          checked={data.hobbies.includes("literature")}
+          checked={appState.hobbies.includes("literature")}
           onChange={() => handleChecked("hobbies", "literature")}
         />
         <label htmlFor="literature">Literature</label>
         <input
           id="leisure"
           type="checkbox"
-          checked={data.hobbies.includes("leisure")}
+          checked={appState.hobbies.includes("leisure")}
           onChange={() => handleChecked("hobbies", "leisure")}
         />
         <label htmlFor="leisure">Leisure</label>
         <input
           id="skill"
           type="checkbox"
-          checked={data.hobbies.includes("up-skilling")}
+          checked={appState.hobbies.includes("up-skilling")}
           onChange={() => handleChecked("hobbies", "up-skilling")}
         />
         <label htmlFor="skill">Up-skilling</label>
@@ -116,27 +115,33 @@ export default function Dashboard({ appState }) {
       <h2>Dashboard</h2>
       <div>
         <span>
-          Student Name: <EditItem data={data.sname} comp={<NameComp />} />
+          Student Name:{" "}
+          <EditItem appState={appState.sname} comp={<NameComp />} />
         </span>
         <span>
-          College Name: <EditItem data={data.cname} comp={<CollegeComp />} />
+          College Name:{" "}
+          <EditItem appState={appState.cname} comp={<CollegeComp />} />
         </span>
         <span>
-          Data of Birth: <EditItem data={data.dob} comp={<DobComp />} />
+          appState of Birth:{" "}
+          <EditItem appState={appState.dob} comp={<DobComp />} />
         </span>
         <span>
-          Gender: <EditItem data={data.gender} comp={<GenderComp />} />
+          Gender: <EditItem appState={appState.gender} comp={<GenderComp />} />
         </span>
         <span>
           Hobbies:{" "}
-          <EditItem data={data.hobbies.join(" ")} comp={<HobbiesComp />} />
+          <EditItem
+            appState={appState.hobbies.join(" ")}
+            comp={<HobbiesComp />}
+          />
         </span>
       </div>
     </div>
   );
 }
 
-function EditItem({ data, comp }) {
+function EditItem({ appState, comp }) {
   const [edit, setEdit] = useState(false);
   const editToggle = () => setEdit(!edit);
   if (edit) {
@@ -150,7 +155,7 @@ function EditItem({ data, comp }) {
     return (
       <div id="editable">
         <span>
-          {data} <i className="fa fa-pencil" onClick={editToggle}></i>
+          {appState} <i className="fa fa-pencil" onClick={editToggle}></i>
         </span>
       </div>
     );
