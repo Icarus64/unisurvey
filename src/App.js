@@ -17,7 +17,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Uniform />} />
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/dashboard/:data" element={<Dashboard />} />
           </Routes>
         </BrowserRouter>
       </header>

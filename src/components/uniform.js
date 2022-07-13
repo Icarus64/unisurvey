@@ -18,8 +18,8 @@ export default function Uniform() {
   const handleSubmit = (event) => {
     event.preventDefault();
     // alert(JSON.stringify(inputs));
-    localStorage.setItem("formData", JSON.stringify(inputs));
-    window.location.href = `/dashboard`;
+    //localStorage.setItem("formData", JSON.stringify(inputs));
+    window.location.href = `/dashboard/${JSON.stringify(inputs)}`;
   };
 
   return (

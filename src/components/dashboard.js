@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 
 export default function Dashboard({ inputs, setInputs }) {
+  // const [data, setData] = useState(
+  //   JSON.parse(localStorage.getItem("formData"))
+  // );
   const [data, setData] = useState(
-    JSON.parse(localStorage.getItem("formData"))
+    JSON.parse(useParams()["data"])
   );
-  console.log(data);
 
   const handleChange = (event, key) => {
     setData((values) => ({ ...values, [key]: event.target.value }));
